@@ -26,8 +26,18 @@
 	${targetYear}년 ${targetMonth+1}월
 	</h1>
 	<!-- 이전달과 다음달로 이동하는 링크를 생성 -->
-	<a href="${pageContext.request.contextPath}/calendarController?targetYear=${targetYear}&targetMonth= ${targetMonth-1}">이전달</a>
-	<a href="${pageContext.request.contextPath}/calendarController?targetYear=${targetYear}&targetMonth= ${targetMonth+1}">다음달</a>
+	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전달</a>
+	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음달</a>
+	
+	<div>
+		<h2>이달의 해시태그</h2>
+		<div>
+			<c:forEach var="m" items="${htList}">
+				<a href="">${m.cashword}(${m.cnt})</a>
+			</c:forEach>
+		</div>
+	</div>
+	
 	
 	<!-- 요일을 표시하는 헤더부분 -->
 	<table border="1" width="80%">
@@ -59,7 +69,7 @@
 				<c:if test="${!(d <1 || d > lastDate) }">
 					<td>
 				<!-- 유효한 날짜범위에 속한다면 ${d}변수를 사용해 날짜를 출력한다 -->
-						<div>${d}</div>
+						<div><a href="${pageContext.request.contextPath}/cashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${d}">${d}</a></div>
 				<!-- list 변수에 저장된 객체목록을 c:forEach 를 사용해 반복한다 -->
 						<c:forEach var="c" items="${list}">
 				<!-- 값과 c.getCashbookDate()에서 추출한 날짜가 일치하는 경우 -->
@@ -67,10 +77,10 @@
 								<div>
 				<!--수입 또는 지출을 표시한다 -->
 									<c:if test="${c.category == '수입'}">
-										<span>+${c.price}</span>
+										<span style="color: blue;">+${c.price}</span>
 									</c:if>
 									<c:if test="${c.category == '지출'}">
-										<span style="color:red;">+${c.price}</span>
+										<span style="color: red;">+${c.price}</span>
 									</c:if>
 								</div>
 							</c:if>

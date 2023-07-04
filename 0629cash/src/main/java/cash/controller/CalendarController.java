@@ -3,6 +3,7 @@ package cash.controller;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import cash.model.CashbookDao;
+import cash.model.HashtagDao;
 import cash.vo.Cashbook;
 
 
@@ -52,6 +54,7 @@ public class CalendarController extends HttpServlet {
 			//api를 통해 Calendar.MONTH에 -1이 들어오면 -> 월이 12이 되고 연도는 -1이 된다
 			firstDay.set(Calendar.YEAR, Integer.parseInt(request.getParameter("targetYear")));
 			firstDay.set(Calendar.MONTH, Integer.parseInt(request.getParameter("targetMonth")));
+
 		}
 		
 		
@@ -78,14 +81,14 @@ public class CalendarController extends HttpServlet {
 		
 		//모델을 호출해 해당 월의 수입/지출 데이터를 가져온다
 		List<Cashbook>list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth +1);
-		
+		List<Map<String,Object>> htList = new HashtagDao().selectWordCountByMonth(memberId, targetYear, targetMonth +1);
+		System.out.println(htList.size() +"<-htList.size");
 		//달력을 출력하는 뷰
 		//넘길 값을 request에 담아서 view 에 넘긴다
 		//묶어서 넘기느냐? 개별적으로 넘기느냐? -> request에 넘길 땐 지금은 개별로 보낸다(가독성)
 		
 		targetYear = firstDay.get(Calendar.YEAR);
 		targetMonth = firstDay.get(Calendar.MONTH);
-		
 		
 		//뷰에 값을 전달하기 위해 request 설정하기
 		request.setAttribute("targetYear", targetYear);
@@ -96,7 +99,7 @@ public class CalendarController extends HttpServlet {
 		request.setAttribute("endBlank", endBlank);
 		
 		request.setAttribute("list", list);
-
+		request.setAttribute("htList", htList);
 		
 		//달력을 출력하는 뷰로 포워딩하기
 		request.getRequestDispatcher("/WEB-INF/view/calendar.jsp").forward(request, response);
