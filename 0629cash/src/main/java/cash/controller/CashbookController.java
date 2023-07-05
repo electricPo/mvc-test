@@ -1,6 +1,7 @@
 package cash.controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,25 +19,31 @@ import cash.vo.Member;
 @WebServlet("/cashbook")
 public class CashbookController extends HttpServlet {
 
-
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//session 인증 겁사 코드
-		//HttpSession session = request.getSession();
-		//if(session.getAttribute("loginMember") == null) {
-		//	response.sendRedirect(request.getContextPath()+"/login");
-		//	return;
-		//}
-		//Member member = (Member) session.getAttribute("loginMember");
+		//로그인 세션 불러오기
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("loginMember");
 		
-		String memberId = "user1";
+		//로그인 실패시 -> login doGet으로 보냄
+		if(session.getAttribute("loginMember") == null) {
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
+		
+		//view에 넘겨줄 날짜정보
+		Calendar firstDay = Calendar.getInstance(); //오늘 날짜 가져오기
+		int targetYear = firstDay.get(Calendar.YEAR);
+		int targetMonth = firstDay.get(Calendar.MONTH);
+		int targetDate = firstDay.get(Calendar.DATE);
 
 		//요청한 파라미터로부터 연도/월/일을 가져오기
-		int targetYear = Integer.parseInt(request.getParameter("targetYear"));
-		int targetMonth = Integer.parseInt(request.getParameter("targetMonth"));
-		int targetDate = Integer.parseInt(request.getParameter("targetDate"));
+		//int targetYear = Integer.parseInt(request.getParameter("targetYear"));
+		//int targetMonth = Integer.parseInt(request.getParameter("targetMonth"));
+		//int targetDate = Integer.parseInt(request.getParameter("targetDate"));
 		
-		//지정 날짜에 해당하는 가계부 목록을 조회
-		List<Cashbook>list=new CashbookDao().selectCashbookListByDate(memberId, targetYear, targetMonth + 1, targetDate);
+		//날짜에 해당하는 가계부 목록을 조회
+		List<Cashbook>list=new CashbookDao().selectCashbookListByDate(member.getMemberId(), targetYear, targetMonth + 1, targetDate);
 		
 		//조회된 가계부 목록과 목표 날짜를 request에 저장
 		request.setAttribute("targetYear", targetYear);
@@ -50,9 +57,9 @@ public class CashbookController extends HttpServlet {
 
 	}
 	
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
-		}
-
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    
+	}
 	
 }

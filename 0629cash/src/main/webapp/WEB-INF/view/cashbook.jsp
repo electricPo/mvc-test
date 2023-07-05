@@ -8,24 +8,27 @@
 <title>cashbook</title>
 </head>
 <body>
-	<div class="container">
-		<h1>${targetYear}년 ${targetMonth+1}월 ${targetDate}일</h1>
-		<a href="${pageContext.request.contextPath}/calendar">이전으로</a>
+	<div>
+	<h1>가계부 상세</h1>
+		<h1>${targetYear}년 ${targetMonth+1}월 ${targetDate}일 가계부</h1>
+		<a href="${pageContext.request.contextPath}/calendar">월별보기</a>
 		<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
 		<a href="${pageContext.request.contextPath}/memberOne">회원정보</a>
-		<table class="table table-bordered">
+		
+		
+		<table>
 			<tr>
+				<th>id</th>
 				<th>수입/지출</th>
 				<th>금액</th>
 				<th>메모</th>
-				<th>작성날짜</th>
 			</tr>
 			<c:forEach var="c" items="${list}">
 				<tr>
+					<td>${c.memberId}</td>
 					<td>${c.category}</td>
 					<td>${c.price}</td>
 					<td>${c.memo}</td>
-					<td>${c.createdate}</td>
 				</tr>
 			</c:forEach>
 		</table>
