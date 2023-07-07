@@ -25,9 +25,9 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute("loginMember");
 		
-		// session 유효성 검사 : 로그인 되어있을 때 cashbook으로 이동
+		// session 유효성 검사 : 로그인 되어있을 때 home로 이동
 		if(session.getAttribute("loginMember") != null) {
-			response.sendRedirect(request.getContextPath()+"/calendar");
+			response.sendRedirect(request.getContextPath()+"/home");
 			return;
 		}
 		
@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet {
 		//로그인 실패시 -> login doGet으로 보냄
 		if(loginMember == null) {
 			System.out.println("로그인 실패");
-			response.sendRedirect(request.getContextPath()+"/login");
+			response.sendRedirect(request.getContextPath()+"/cashbook");
 			return;
 		}
 		
@@ -83,11 +83,11 @@ public class LoginController extends HttpServlet {
 		
 		// 로그인 성공시 : session에 저장 후 cashbook.jsp으로
 		HttpSession session = request.getSession();
-		System.out.println("로그인 성공 -> calendar로 이동");
+		System.out.println("로그인 성공 -> home으로 이동");
 		session.setAttribute("loginMember", loginMember);
 		
 		//출력하는 뷰로 포워딩하기
-	  	request.getRequestDispatcher("/WEB-INF/view/cashbook.jsp").forward(request, response);
+	  	request.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(request, response);
 	}
 
 }

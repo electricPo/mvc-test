@@ -10,11 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.model.HashtagDao;
+import cash.model.MemberDao;
 import cash.vo.Cashbook;
+import cash.vo.Member;
 
 
 
@@ -23,15 +25,15 @@ public class CalendarController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// session 인증 검사 코드
-		//HttpSession session = request.getSession();
-		//if(session.getAttribute("loginMember") != null) {
-		//	response.sendRedirect(request.getContextPath()+"/cashbook");
-		//	return;
-		//}
-		String memberId = "user1";
+		//로그인 세션 불러오기
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("loginMember");
 		
+		// 로그인 실패시 -> login doGet으로 보냄
+		if (member == null) {
+		    response.sendRedirect(request.getContextPath() + "/login");
+		    return;
+		}	
 
 		//view에 넘겨줄 달력정보(모델값)
 		Calendar firstDay = Calendar.getInstance(); //오늘 날짜 가져오기
@@ -80,8 +82,8 @@ public class CalendarController extends HttpServlet {
 		System.out.println(endBlank+" <- endBlank");
 		
 		//모델을 호출해 해당 월의 수입/지출 데이터를 가져온다
-		List<Cashbook>list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth +1);
-		List<Map<String,Object>> htList = new HashtagDao().selectWordCountByMonth(memberId, targetYear, targetMonth +1);
+		List<Cashbook>list = new CashbookDao().selectCashbookListByMonth(member.getMemberId(), targetYear, targetMonth +1);
+		List<Map<String,Object>> htList = new HashtagDao().selectWordCountByMonth(member.getMemberId(), targetYear, targetMonth +1);
 		System.out.println(htList.size() +"<-htList.size");
 		//달력을 출력하는 뷰
 		//넘길 값을 request에 담아서 view 에 넘긴다
@@ -90,7 +92,13 @@ public class CalendarController extends HttpServlet {
 		targetYear = firstDay.get(Calendar.YEAR);
 		targetMonth = firstDay.get(Calendar.MONTH);
 		
+		//모델값 구하기(dao 메서드 호출)
+		MemberDao memberDao = new MemberDao();
+		Member loginmember = memberDao.selectMemberOne(member.getMemberId());
+		
 		//뷰에 값을 전달하기 위해 request 설정하기
+		request.setAttribute("member", member);
+		request.setAttribute("endBlank", endBlank);
 		request.setAttribute("targetYear", targetYear);
 		request.setAttribute("targetMonth", targetMonth);
 		request.setAttribute("beginBlank", beginBlank);

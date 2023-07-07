@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%><!-- jstl substring호출 -->
+<%@ page isELIgnored="false" %>
 <!-- jsp 컴파일 시 자바코드로 변환되는 c:...(제어문법코드) 커스텀 태그 사용 가능 -->
 <!DOCTYPE html>
 <html>
@@ -28,7 +29,8 @@
 	<!-- 이전달과 다음달로 이동하는 링크를 생성 -->
 	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전달</a>
 	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음달</a>
-	<a href="${pageContext.request.contextPath}/addCashbook">추가입력</a>
+	<a href="${pageContext.request.contextPath}/home">홈으로</a>
+	
 	<div>
 		<h2>이달의 해시태그</h2>
 		<div>
@@ -53,11 +55,11 @@
 
 		<tr>
 			<!-- foreach를 사용해 0부터 totalcell -1까지 반복 var=i로 현재의 값을 저장한다 -->
-			<c:forEach var="i" begin="0" end="${totalCell - 1}" step="1">
+			<c:forEach var="i" begin="0" end="${totalCell-1}" step="1">
 			<!-- d 변수를 i-beginBlank+1(캘린더에 날짜를 표시하는 값)로 설정 -->
 				<c:set var="d" value="${i-beginBlank+1 }"></c:set> 
 				<!-- 매주마다 행을 나눈다 -->	
-				<c:if test="${i!=0 && i % 7 == 0 }"> 
+				<c:if test="${i!=0 && i%7 == 0}"> 
 					</tr><tr>
 				</c:if>
 				<!-- d값이 유효한 날짜범위에 속하지 않으면 <td>를 생성 -->
@@ -68,7 +70,7 @@
 					|| choose / otherwise를 쓰면 switch 가능하다-->
 				<c:if test="${!(d <1 || d > lastDate) }">
 					<td>
-				<!-- 유효한 날짜범위에 속한다면 ${d}변수를 사용해 날짜를 출력한다 -->
+				<!-- 유효한 날짜범위에 속한다면 $d변수를 사용해 날짜를 출력한다 -->
 						<div><a href="${pageContext.request.contextPath}/cashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${d}">${d}</a></div>
 				<!-- list 변수에 저장된 객체목록을 c:forEach 를 사용해 반복한다 -->
 						<c:forEach var="c" items="${list}">
