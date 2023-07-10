@@ -28,7 +28,7 @@ public class HomeController extends HttpServlet {
 			return;
 		}
 		
-		
+		//현재 방문자 수, 누적 방문자 수
 		this.counterService = new CounterService();
 		
 		int counter = counterService.getCounter();
