@@ -11,9 +11,7 @@ import javax.servlet.http.HttpSession;
 import cash.model.MemberDao;
 import cash.vo.Member;
 
-/**
- * Servlet implementation class MemberOneController
- */
+
 @WebServlet("/memberOne")
 //
 public class MemberOneController extends HttpServlet {

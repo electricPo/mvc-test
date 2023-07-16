@@ -2,9 +2,10 @@ package cash.vo;
 
 public class Cashbook {
 	private int cashbookNo;
+	private String memberId;
 	private int price;
 	private String category;
-	private int cashbookDate;
+	private String cashbookDate;
 	private String memo;
 	private int updatedate;
 	private int createdate;
@@ -19,6 +20,18 @@ public class Cashbook {
 	 */
 	public void setCashbookNo(int cashbookNo) {
 		this.cashbookNo = cashbookNo;
+	}
+	/**
+	 * @return the memberId
+	 */
+	public String getMemberId() {
+		return memberId;
+	}
+	/**
+	 * @param memberId the memberId to set
+	 */
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	/**
 	 * @return the price
@@ -47,13 +60,13 @@ public class Cashbook {
 	/**
 	 * @return the cashbookDate
 	 */
-	public int getCashbookDate() {
+	public String getCashbookDate() {
 		return cashbookDate;
 	}
 	/**
 	 * @param cashbookDate the cashbookDate to set
 	 */
-	public void setCashbookDate(int cashbookDate) {
+	public void setCashbookDate(String cashbookDate) {
 		this.cashbookDate = cashbookDate;
 	}
 	/**
@@ -92,26 +105,11 @@ public class Cashbook {
 	public void setCreatedate(int createdate) {
 		this.createdate = createdate;
 	}
-	public Cashbook() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Cashbook(int cashbookNo, int price, String category, int cashbookDate, String memo, int updatedate,
-			int createdate) {
-		super();
-		this.cashbookNo = cashbookNo;
-		this.price = price;
-		this.category = category;
-		this.cashbookDate = cashbookDate;
-		this.memo = memo;
-		this.updatedate = updatedate;
-		this.createdate = createdate;
-	}
 	@Override
 	public String toString() {
-		return "Cashbook [cashbookNo=" + cashbookNo + ", price=" + price + ", category=" + category + ", cashbookDate="
-				+ cashbookDate + ", memo=" + memo + ", updatedate=" + updatedate + ", createdate=" + createdate + "]";
+		return "Cashbook [cashbookNo=" + cashbookNo + ", memberId=" + memberId + ", price=" + price + ", category="
+				+ category + ", cashbookDate=" + cashbookDate + ", memo=" + memo + ", updatedate=" + updatedate
+				+ ", createdate=" + createdate + "]";
 	}
-
-
+	
 }
