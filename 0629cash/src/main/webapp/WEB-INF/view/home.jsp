@@ -6,12 +6,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
+<style>
+element.style {
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+user agent stylesheet
+p {
+    display: block;
+    margin-block-start: 50PX;
+    margin-block-end: 50PX;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+</style>
 <body>
-	<h1>home</h1>
-	<a href="${pageContext.request.contextPath}/calendar">월별보기</a>
-	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
-	<a href="${pageContext.request.contextPath}/memberOne">회원정보</a>
+
+<jsp:include page="/layout/header.jsp"></jsp:include>
+
+
 	<div>
 		현재접속자: ${currentCounter} <!-- application.getAttribute("currentCounter") -->
 	</div>
@@ -21,5 +42,8 @@
 	<div>
 		누적접속자 수: ${totalCounter} <!-- request.getAttribute("totalCounter") -->
 	</div>
+	
+
+<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>
 </html>
