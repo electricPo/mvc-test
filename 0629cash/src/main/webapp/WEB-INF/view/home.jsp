@@ -8,26 +8,7 @@
 <title>Insert title here</title>
 
 </head>
-<style>
-element.style {
-}
-p {
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
 
-*, ::after, ::before {
-    box-sizing: border-box;
-}
-user agent stylesheet
-p {
-    display: block;
-    margin-block-start: 50PX;
-    margin-block-end: 50PX;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
-</style>
 <body>
 
 <jsp:include page="/layout/header.jsp"></jsp:include>
