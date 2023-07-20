@@ -16,7 +16,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- 아이디, 패스워드 앞 두 자리만 보여주게 -->
+	<jsp:include page="/layout/header.jsp"></jsp:include>
+	
 	<h1>회원 상세정보</h1>
 	<form method="post" action="${pageContext.request.contextPath}/removeMember">
 		<table>
@@ -34,5 +35,7 @@
 		<a href="${pageContext.request.contextPath}/modifyMember">회원정보수정</a>
 		<a href="${pageContext.request.contextPath}/removeMember">회원탈퇴</a>
 	</form>
+	
+	<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>
 </html>

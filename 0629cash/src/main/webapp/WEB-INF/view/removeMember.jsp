@@ -16,6 +16,8 @@
 <title>회원 탈퇴</title>
 </head>
 <body>
+	<jsp:include page="/layout/header.jsp"></jsp:include>
+	
 	<h1>회원 탈퇴</h1>
 	<form method="post" action="${pageContext.request.contextPath}/removeMember" >
 		<table>
@@ -27,5 +29,6 @@
 		<button type="submit">탈퇴하기</button>
 	</form>
 	
+	<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>
 </html>

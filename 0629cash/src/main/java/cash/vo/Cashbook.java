@@ -111,5 +111,9 @@ public class Cashbook {
 				+ category + ", cashbookDate=" + cashbookDate + ", memo=" + memo + ", updatedate=" + updatedate
 				+ ", createdate=" + createdate + "]";
 	}
+	public void setPrice(String format) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

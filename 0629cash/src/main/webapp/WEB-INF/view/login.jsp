@@ -6,6 +6,8 @@
 <title>login.jsp</title>
 </head>
 <body>
+	<jsp:include page="/layout/header.jsp"></jsp:include>
+	
 	<h1>로그인</h1>
 	<form method="post" action="${pageContext.request.contextPath}/login">
 
@@ -23,5 +25,7 @@
 		</div>
 		<a href="${pageContext.request.contextPath}/addMember">회원가입</a>
 	</form>
+	
+	<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>
 </html>

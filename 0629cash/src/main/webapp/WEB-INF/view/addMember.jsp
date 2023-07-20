@@ -7,6 +7,8 @@
 <title>addMember</title>
 </head>
 <body>
+	<jsp:include page="/layout/header.jsp"></jsp:include>
+	
 	<h1>회원가입</h1>
 	<form method="post" action="${pageContext.request.contextPath}/addMember">
 		<table border="1">
@@ -21,5 +23,7 @@
 		</table>
 		<button type="submit">회원가입</button>
 	</form>
+	
+	<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>
 </html>

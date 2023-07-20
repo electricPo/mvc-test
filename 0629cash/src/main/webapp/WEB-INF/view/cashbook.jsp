@@ -8,6 +8,8 @@
 <title>cashbook</title>
 </head>
 <body>
+	<jsp:include page="/layout/header.jsp"></jsp:include>
+	
 	<div>
 	<h1>가계부 상세</h1>
 		<h1>${targetYear}년 ${targetMonth+1}월 ${targetDate}일 가계부</h1>
@@ -33,5 +35,7 @@
 			</c:forEach>
 		</table>
 	</div>
+	
+	<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>
 </html>

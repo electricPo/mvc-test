@@ -11,6 +11,7 @@
 </head>
 
 <body>
+	<jsp:include page="/layout/header.jsp"></jsp:include>
 
 	<!-- 변수값 or 반환값 -> EL 사용$표현식 -->
 	<!-- 속성값 대신 EL 사용 
@@ -91,7 +92,7 @@
 				</c:if>
 			</c:forEach>
 	</table>
-	
+	<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>
 </html>
 

@@ -6,31 +6,40 @@
 <title>Insert title here</title>
 </head>
 <style>
-element.style {
-}
-p {
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
+	footer {
+	    margin-top: 100px;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
+    .top {
+	  margin-top: 100px;
+	  padding: 20px 0;
+	}
+    
+	.jumbotron {
+        background-color: #4d5358;
+		border-radius: 0.3rem;
+		padding: 4px 2rem;
+    }
 
-*, ::after, ::before {
-    box-sizing: border-box;
-}
-user agent stylesheet
-p {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
+    p {
+        margin: 0;
+        color: white;
+    }
+    
+
+    main {
+        flex: 1;
+
+	}
+
 </style>
-<body>
-	<br />
+<footer class="top">
 	<div class="jumbotron text-center" style="margin-bottom: 0">
 		<p>Created by </p>
 		<p>☎</p>
 		<p>구디</p>
 	</div>
-</body>
+</footer>
 </html>
