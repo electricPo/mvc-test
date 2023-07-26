@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import cash.model.CashbookDao;
 import cash.model.HashtagDao;
@@ -82,7 +83,8 @@ public class CalendarController extends HttpServlet {
 		System.out.println(endBlank+" <- endBlank");
 		
 		//모델을 호출해 해당 월의 수입/지출 데이터를 가져온다
-		List<Cashbook>list = new CashbookDao().selectCashbookListByMonth(member.getMemberId(), targetYear, targetMonth +1);
+		CashbookDao cashbookDao = new CashbookDao();
+		List<Cashbook>list = cashbookDao.selectCashbookListByMonth(member.getMemberId(), targetYear, targetMonth + 1);
 		List<Map<String,Object>> htList = new HashtagDao().selectWordCountByMonth(member.getMemberId(), targetYear, targetMonth +1);
 		System.out.println(htList.size() +"<-htList.size");
 		//달력을 출력하는 뷰

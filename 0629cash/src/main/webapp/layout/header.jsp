@@ -18,8 +18,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
+
+<style>
+	* {
+	  font-family: "Nanum Gothic" !important;
+	}
+
+  	.custom-navbar {
+    	background-color: #22800042;
+  	}
+</style>
+
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md custom-navbar">
   <!-- Brand -->
   <a class="navbar-brand" href="#">Cashbook</a>
 

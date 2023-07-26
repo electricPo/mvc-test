@@ -7,22 +7,19 @@
 </head>
 <style>
 	footer {
+		background-color: #22800042;
 	    margin-top: 100px;
         left: 0;
         bottom: 0;
         width: 100%;
+        text-align: center;
     }
     .top {
-	  margin-top: 100px;
-	  padding: 20px 0;
+		margin-top: 100px;
+	  	padding: 20px 0;
+	  
 	}
     
-	.jumbotron {
-        background-color: #4d5358;
-		border-radius: 0.3rem;
-		padding: 4px 2rem;
-    }
-
     p {
         margin: 0;
         color: white;
@@ -36,7 +33,7 @@
 
 </style>
 <footer class="top">
-	<div class="jumbotron text-center" style="margin-bottom: 0">
+	<div style="margin-bottom: 0">
 		<p>Created by </p>
 		<p>☎</p>
 		<p>구디</p>
