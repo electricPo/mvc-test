@@ -7,8 +7,8 @@ public class Cashbook {
 	private String category;
 	private String cashbookDate;
 	private String memo;
-	private int updatedate;
-	private int createdate;
+	private String updatedate;
+	private String createdate;
 	/**
 	 * @return the cashbookNo
 	 */
@@ -84,25 +84,25 @@ public class Cashbook {
 	/**
 	 * @return the updatedate
 	 */
-	public int getUpdatedate() {
+	public String getUpdatedate() {
 		return updatedate;
 	}
 	/**
 	 * @param updatedate the updatedate to set
 	 */
-	public void setUpdatedate(int updatedate) {
+	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
 	/**
 	 * @return the createdate
 	 */
-	public int getCreatedate() {
+	public String getCreatedate() {
 		return createdate;
 	}
 	/**
 	 * @param createdate the createdate to set
 	 */
-	public void setCreatedate(int createdate) {
+	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
 	@Override
@@ -111,9 +111,6 @@ public class Cashbook {
 				+ category + ", cashbookDate=" + cashbookDate + ", memo=" + memo + ", updatedate=" + updatedate
 				+ ", createdate=" + createdate + "]";
 	}
-	public void setPrice(String format) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }

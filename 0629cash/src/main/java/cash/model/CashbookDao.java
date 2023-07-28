@@ -190,7 +190,7 @@ public class CashbookDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT cashbook_no cashbookNo, category, price, memo "
+		String sql = "SELECT member_id memberId, category, cashbook_date cashbookDate, price, memo, createdate, updatedate "
 				+ "FROM cashbook "
 				+ "WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ? "
 				+ "ORDER BY cashbook_date ASC";
@@ -202,14 +202,15 @@ public class CashbookDao {
 			stmt.setString(1,memberId);
 			stmt.setInt(2,targetYear);
 			stmt.setInt(3,targetMonth);
+			stmt.setInt(4,targetDate);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				Cashbook c = new Cashbook();
-				c.setCashbookNo(rs.getInt("cashbookNo"));
+				c.setMemberId(rs.getString("memberId"));
 				c.setCategory(rs.getString("category"));
 				c.setPrice(rs.getInt("price"));
 				c.setMemo(rs.getString("memo"));
-				c.setMemo(rs.getString("cashbookDate"));
+				c.setCashbookDate(rs.getString("cashbookDate"));
 				list.add(c);
 			}
 		} catch (Exception e1) {

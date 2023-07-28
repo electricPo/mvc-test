@@ -1,6 +1,9 @@
 package cash.controller;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,8 +15,9 @@ import cash.model.*;
 import cash.vo.*;
 
 
-@WebServlet("/addCashbook")
+@WebServlet("/addCash")
 public class AddCashbookController extends HttpServlet {
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//로그인 세션 불러오기
 		HttpSession session = request.getSession();
@@ -27,15 +31,12 @@ public class AddCashbookController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/calendar");
 			return;
 		}
-		String cashbookDate = request.getParameter("cashbookDate");
-		
-		request.setAttribute("memberId", memberId);
-		request.setAttribute("cashbookDate", cashbookDate);
-		request.getRequestDispatcher("/WEB-INF/view/addCashbook.jsp").forward(request, response);
+
+		request.getRequestDispatcher("/WEB-INF/view/cashbook.jsp").forward(request, response);
 
 	}
 
-
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//로그인 세션 불러오기
 		HttpSession session = request.getSession();
@@ -45,10 +46,23 @@ public class AddCashbookController extends HttpServlet {
 		}
 		
 		request.setCharacterEncoding("utf-8");
+		Member member = (Member) session.getAttribute("loginMember");
 		
-		String memberId = ((Member)session.getAttribute("loginMember")).getMemberId();
+		int targetYear = Integer.parseInt(request.getParameter("targetYear"));
+		int targetMonth = Integer.parseInt(request.getParameter("targetMonth"));
+		int targetDate = Integer.parseInt(request.getParameter("targetDate"));
+		String cashbookdate = targetYear + "-" + targetMonth + "-" + targetDate ;
+		
+		// 유효성검사 
+		if(request.getParameter("price") == null 
+			|| request.getParameter("memo") == null) {
+			response.sendRedirect(request.getContextPath() + "/cashbook?targetYear=" + targetYear + "&targetMonth=" + targetMonth + "&date=" + targetDate);
+			return;
+		}
+		
+		
+		
 		String category = request.getParameter("category");
-		String cashbookDate = request.getParameter("cashbookDate");
 		int price = Integer.parseInt(request.getParameter("price"));
 		String memo = request.getParameter("memo");
 		// 메모에 해시태그 중복 및 내용없는 해시태그 제거
@@ -66,20 +80,23 @@ public class AddCashbookController extends HttpServlet {
 		}
 		
 		Cashbook cashbook = new Cashbook();
-		cashbook.setMemberId(memberId);
+		
+		cashbook.setMemberId(member.getMemberId());
 		cashbook.setCategory(category);
-		cashbook.setCashbookDate(cashbookDate);
+		cashbook.setCashbookDate(cashbookdate);
 		cashbook.setPrice(price);
 		cashbook.setMemo(memo);
+		
 		CashbookDao cashbookDao = new CashbookDao();
 		int cashbookNo = cashbookDao.insertCashbook(cashbook);
 		
 		if(cashbookNo == 0) {
 			System.out.println("입력 실패");
-			response.sendRedirect(request.getContextPath() + "/addCashbook?cashbookDate="+cashbook.getCashbookDate());
+			response.sendRedirect(request.getContextPath() + "/cashbook?cashbookDate="+cashbook.getCashbookDate());
 			return;
 		}
 		
+
 		HashtagDao hashtagDao = new HashtagDao();
 		// 입력 성공 시 해시태그 존재 여부 확인
 		// 해시태그 있을 경우 추출하여 데이터베이스에 입력
@@ -95,10 +112,11 @@ public class AddCashbookController extends HttpServlet {
 			}
 		}
 		
-		
+		/*
 		int targetYear = Integer.parseInt(cashbook.getCashbookDate().substring(0, 4));
 		int targetMonth = Integer.parseInt(cashbook.getCashbookDate().substring(5, 7)) - 1;
 		int targetDate = Integer.parseInt(cashbook.getCashbookDate().substring(8, 10));
+		*/
 		response.sendRedirect(request.getContextPath()+"/cashbook?targetYear="+targetYear+"&targetMonth="+targetMonth+"&targetDate="+targetDate);
 	}
 

@@ -29,9 +29,10 @@ public class CalendarController extends HttpServlet {
 		//로그인 세션 불러오기
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
 		
 		// 로그인 실패시 -> login doGet으로 보냄
-		if (member == null) {
+		if (memberId == null) {
 		    response.sendRedirect(request.getContextPath() + "/login");
 		    return;
 		}	
@@ -101,7 +102,7 @@ public class CalendarController extends HttpServlet {
 		
 		//모델값 구하기(dao 메서드 호출)
 		MemberDao memberDao = new MemberDao();
-		Member loginmember = memberDao.selectMemberOne(member.getMemberId());
+		Member loginMember = memberDao.selectMemberOne(member.getMemberId());
 		
 		//뷰에 값을 전달하기 위해 request 설정하기
 		request.setAttribute("member", member);
