@@ -8,47 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- css파일 -->
+	<link href="<%=request.getContextPath() %>/style.css" type="text/css" rel="stylesheet">
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<style>
-	.body {
-	    margin: 0;
-	    font-size: medium;
-	    font-weight: 500;
-	    line-height: inherit;
-	    color: #212529;
-	    text-align: center;
-	    background-color: #fff;
-	}
-	
-	.head{
-	padding: 20px;
-	}
-	
- 	.table {
- 	text-align: center;
- 	padding: 80%;
-    margin-bottom: 70px;
-    color: #212529;
-    background-color: #3c763d08;
- 	}
- 	
- 	.thwidth{
- 	width: 10%;
- 	background-color: #3c763d08;
- 	
- 	}
- 	.trheight{
- 	height: 100px;
- 	}
-</style>
+
+<script>
+    function 페이지로이동(year, month, day) {
+        // 애플리케이션의 기본 URL을 가져오기 위해 pageContext.request.contextPath를 사용합니다.
+        let baseUrl = "${pageContext.request.contextPath}";
+        let targetUrl = baseUrl + "/cashbook?targetYear=" + year + "&targetMonth=" + month + "&targetDate=" + day;
+        window.location.href = targetUrl;
+    }
+</script>
 
 <body class="body">
 
@@ -82,7 +60,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="conainer">
+	<div class="container">
+
 		<!-- 요일을 표시하는 헤더부분 -->
 		<table class="table">
 			<thead>
@@ -97,46 +76,48 @@
 				</tr>
 			</thead>
 			<tbody>
-			<tr>
-				<!-- foreach를 사용해 0부터 totalcell -1까지 반복 var=i로 현재의 값을 저장한다 -->
-				<c:forEach var="i" begin="0" end="${totalCell-1}" step="1">
-				<!-- d 변수를 i-beginBlank+1(캘린더에 날짜를 표시하는 값)로 설정 -->
-					<c:set var="d" value="${i-beginBlank+1 }"></c:set> 
-					<!-- 매주마다 행을 나눈다 -->	
-					<c:if test="${i!=0 && i%7 == 0}"> 
-						</tr><tr>
-					</c:if>
-					<!-- d값이 유효한 날짜범위에 속하지 않으면 <td>를 생성 -->
-					<c:if test="${d < 1 || d > lastDate}">
-						<td></td>
-					</c:if>
-					<!-- else if문은 if문을 !으로  
-						|| choose / otherwise를 쓰면 switch 가능하다-->
-					<c:if test="${!(d <1 || d > lastDate) }">
-						<td class="trheight">
-					<!-- 유효한 날짜범위에 속한다면 $d변수를 사용해 날짜를 출력한다 -->
-							<div><a href="${pageContext.request.contextPath}/cashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${d}">${d}</a></div>
-					<!-- list 변수에 저장된 객체목록을 c:forEach 를 사용해 반복한다 -->
-							<c:forEach var="c" items="${list}">
-					<!-- 값과 c.getCashbookDate()에서 추출한 날짜가 일치하는 경우 -->
-								<c:if test="${d == fn:substring(c.getCashbookDate(),8,10)}">
-									<div>
-					<!--수입 또는 지출을 표시한다 -->
-										<c:if test="${c.category == '수입'}">
-											<span style="color: blue;">+${c.price}</span>
-										</c:if>
-										<c:if test="${c.category == '지출'}">
-											<span style="color: red;">-${c.price}</span>
-										</c:if>
-									</div>
-								</c:if>
-							</c:forEach>
-						</td>
-					</c:if>
-				</c:forEach>
-			</tr>
+			    <tr>
+			        <!-- foreach를 사용해 0부터 totalcell -1까지 반복 var=i로 현재의 값을 저장한다 -->
+			        <c:forEach var="i" begin="0" end="${totalCell-1}" step="1">
+			            <!-- d 변수를 i-beginBlank+1(캘린더에 날짜를 표시하는 값)로 설정 -->
+			            <c:set var="d" value="${i-beginBlank+1 }"></c:set> 
+			            <!-- 매주마다 행을 나눈다 -->	
+			            <c:if test="${i!=0 && i%7 == 0}"> 
+			                </tr><tr>
+			            </c:if>
+			            <!-- d값이 유효한 날짜범위에 속하지 않으면 <td>를 생성 -->
+			            <c:if test="${d < 1 || d > lastDate}">
+			                <td class="tdheight"></td>
+			            </c:if>
+			            <!-- else if문은 if문을 !으로  
+			                || choose / otherwise를 쓰면 switch 가능하다-->
+			            <c:if test="${!(d < 1 || d > lastDate)}">
+			                <td class="trheight tdheight" onclick="페이지로이동(${targetYear}, ${targetMonth + 1}, ${d})">
+			                    <div>
+			                        <a>${d}</a>
+			                    </div>
+			                    <!-- 해당 날짜에 해당하는 모든 내역 중 최대 4개만 출력 -->
+			                    <c:set var="count" value="0" />
+			                    <c:forEach var="c" items="${list}">
+			                        <c:if test="${d == fn:substring(c.getCashbookDate(), 8, 10) && count < 4}">
+			                            <div>
+			                                <c:if test="${c.category == '수입'}">
+			                                    <span class="income-text" style="color: blue;">+${c.price}</span>
+			                                </c:if>
+			                                <c:if test="${c.category == '지출'}">
+			                                    <span class="expense-text" style="color: red;">-${c.price}</span>
+			                                </c:if>
+			                            </div>
+			                            <c:set var="count" value="${count + 1}" />
+			                        </c:if>
+			                    </c:forEach>
+			                </td>
+			            </c:if>
+			        </c:forEach>
+			    </tr>
 			</tbody>
 		</table>
+
 	</div>
 	<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>

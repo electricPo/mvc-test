@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- css파일 -->
+	<link href="<%=request.getContextPath() %>/style.css" type="text/css" rel="stylesheet">
 <!-- 부트스트랩 적용 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -19,15 +21,6 @@
 
 </head>
 
-<style>
-	* {
-	  font-family: "Nanum Gothic" !important;
-	}
-
-  	.custom-navbar {
-    	background-color: #22800042;
-  	}
-</style>
 
 <body>
 <nav class="navbar navbar-expand-md custom-navbar">
