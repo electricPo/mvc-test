@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%><!-- jstl substring호출 -->
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!-- jsp 컴파일 시 자바코드로 변환되는 c:...(제어문법코드) 커스텀 태그 사용 가능 -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CASH BOOK</title>
 <!-- css파일 -->
 	<link href="<%=request.getContextPath() %>/style.css" type="text/css" rel="stylesheet">
 <!-- Latest compiled and minified CSS -->
@@ -49,7 +49,6 @@
 		<!-- 이전달과 다음달로 이동하는 링크를 생성 -->
 		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전달</a>
 		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음달</a>
-		<a href="${pageContext.request.contextPath}/home">홈으로</a>
 		
 		<div>
 			<h2>이달의 해시태그</h2>
@@ -98,19 +97,20 @@
 			                    </div>
 			                    <!-- 해당 날짜에 해당하는 모든 내역 중 최대 4개만 출력 -->
 			                    <c:set var="count" value="0" />
-			                    <c:forEach var="c" items="${list}">
-			                        <c:if test="${d == fn:substring(c.getCashbookDate(), 8, 10) && count < 4}">
-			                            <div>
-			                                <c:if test="${c.category == '수입'}">
-			                                    <span class="income-text" style="color: blue;">+${c.price}</span>
-			                                </c:if>
-			                                <c:if test="${c.category == '지출'}">
-			                                    <span class="expense-text" style="color: red;">-${c.price}</span>
-			                                </c:if>
-			                            </div>
-			                            <c:set var="count" value="${count + 1}" />
-			                        </c:if>
-			                    </c:forEach>
+			                    <!-- 수정된 코드: 포맷터 적용 -->
+								<c:forEach var="c" items="${list}">
+								    <c:if test="${d == fn:substring(c.getCashbookDate(), 8, 10) && count < 4}">
+								        <div>
+								            <c:if test="${c.category == '수입'}">
+								                <span class="income-text" style="color: blue;">+<fmt:formatNumber value="${c.price}" pattern="###,###,###,###"/></span>
+								            </c:if>
+								            <c:if test="${c.category == '지출'}">
+								                <span class="expense-text" style="color: red;">-<fmt:formatNumber value="${c.price}" pattern="###,###,###,###"/></span>
+								            </c:if>
+								        </div>
+								        <c:set var="count" value="${count + 1}" />
+								    </c:if>
+								</c:forEach>
 			                </td>
 			            </c:if>
 			        </c:forEach>
