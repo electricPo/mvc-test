@@ -17,31 +17,39 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body class="body">
+<body class="home-body">
 
 <jsp:include page="/layout/header.jsp"></jsp:include>
-
-	<div class="container">
-		<div>
-			현재접속자: ${currentCounter} <!-- application.getAttribute("currentCounter") -->
-		</div>
-		<div>
-			오늘접속자 수: ${counter} <!-- request.getAttribute("counter") -->
-		</div>
-		<div>
-			누적접속자 수: ${totalCounter} <!-- request.getAttribute("totalCounter") -->
-		</div>
-	</div>
 	
-	<div class="container">
-		차트 보이기<br>
-		월별 해시태그 비율<br>
-		월별 소비 지출 비율<br>
-		
-	</div>
-	<div class="container">
-		최신 소비 지출 내역(10개?)
-	</div>
+	<section id="chart" class="col-lg-4">
+		<div class="container">
+			차트 보이기<br>
+			월별 해시태그 비율<br>
+			월별 소비 지출 비율<br>
+		</div>
+	</section>
+	
+	<section class="latest-expense">
+		<div class="container">
+			최신 소비 지출 내역(10개?)
+		</div>
+	</section>
+	
+	<section id="counter" class="counter section-bg">
+	    <div class="container" data-aos="fade-up">
+	      <div class="section-title">
+	        <div class="row">
+	          <div class="counter-info">
+	            <ul class="counter-list">
+	              <li>현재접속자: ${currentCounter}</li>
+	              <li>오늘접속자 수: ${counter}</li>
+	              <li>누적접속자 수: ${totalCounter}</li>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	</section>
 
 <jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>

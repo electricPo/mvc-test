@@ -5,10 +5,97 @@
 	* {
 	  font-family: "Nanum Gothic" !important;
 	}
+	.custom-navbar .navbar-brand {
+	  font-size: 24px; /* Change this value to set your desired font size */
+	}
 
   	.custom-navbar {
     	background-color: #22800042;
   	}
+
+	.custom-navbar .navbar-brand,
+	.custom-navbar .nav-item .nav-link {
+	  font-size: 20px;
+	  font-weight: bold; 
+	  color: #ffffff;
+	  text-align: center;
+	}
+ /*홈*/
+ 	.home-body {
+	    background-color: #f2f2f2;
+	    margin: 0;
+        font-size: medium;
+        font-weight: 500;
+        line-height: inherit;
+        color: #212529;
+        text-align: center;
+	  }
+
+  	#chart, .latest-expense, #counter {
+	    background-color: #ffffff;
+	    margin: 100px 0;
+	    padding: 100px;
+	  }
+ 	/* Counter Section */
+ 
+     #counter {
+	    background-color: #ffffff;
+	    padding: 100x 0;
+	    text-align: center;
+	    position: relative;
+	  }
+	.counter-info {
+	    position: absolute;
+	    bottom: 20px;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    font-size: 16px;
+	    background-color: #fff;
+	    padding: 10px 20px;
+	    border-radius: 10px;
+	    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+	  }
+	.counter-list {
+	    list-style: none;
+	    padding: 0;
+	  }
+    /* Chart Section */
+    #chart {
+      background-color: #eaeaea;
+      padding: 40px 0;
+    }
+
+    /* Latest Expense Section */
+    .latest-expense {
+      background-color: #f9f9f9;
+      padding: 40px 0;
+    }	
+	
+	
+ /*로그인*/
+ .loginBody {
+	  margin: 0;
+	  padding: 0;
+	  background-color: #ffffff;
+	  height: 100vh;
+
+	}
+	#login .container #login-row #login-column #login-box {
+	  margin-top: 120px;
+	  max-width: 400px;
+	  height: 320px;
+	  border: 1px solid #9C9C9C;
+	  background-color: #EAEAEA;
+	  font-size: 1.5rem;
+	}
+	#login .container #login-row #login-column #login-box #login-form {
+	  padding: 20px;
+	  font-size: 1.5rem;
+	}
+	#login .container #login-row #login-column #login-box #login-form #register-link {
+	  margin-top: -85px;
+	  font-size: 1.5rem;
+	}
 
 /* 캘린더 */
 .body {
@@ -41,7 +128,7 @@
     
 	.tdheight {
         /* Set the height of the table rows (tr) to 20% */
-        height: 100px;
+        height: 150px;
     }
     .trheight:hover {
         background-color: #f5f5f5;
