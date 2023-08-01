@@ -25,7 +25,7 @@ public class HashtagDao {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
-			String sql = "SELECT word, COUNT(*) cnt "
+			String sql = "SELECT cashword, COUNT(*) cnt "
 					+ "FROM hashtag h INNER JOIN cashbook c "
 					+ "ON h.cashbook_no = c.cashbook_no "
 					+ "WHERE c.member_id = ? AND year(c.cashbook_date) = ? AND month(c.cashbook_date) = ? "

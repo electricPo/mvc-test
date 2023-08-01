@@ -42,81 +42,95 @@
 		-->
 	
 	<!--	자바코드(제어문): JSTL(for문...) 사용-->
-	<div class="head">
-		<h1>
-		<strong>${targetYear}년 ${targetMonth+1}월</strong>
-		</h1>
-		<!-- 이전달과 다음달로 이동하는 링크를 생성 -->
-		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전달</a>
-		<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음달</a>
-		
-		<div>
-			<h2>이달의 해시태그</h2>
-			<div>
-				<c:forEach var="m" items="${htList}">
-					<a href="${pageContext.request.contextPath}/cashbookListbyTag?cashword=${m.cashword}">${m.cashword}(${m.cnt})</a>
-				</c:forEach>
-			</div>
-		</div>
-	</div>
+	
 	<div class="container">
-
-		<!-- 요일을 표시하는 헤더부분 -->
-		<table class="table">
-			<thead>
-				<tr>
-					<th class=thwidth>일</th>
-					<th class=thwidth>월</th>
-					<th class=thwidth>화</th>
-					<th class=thwidth>수</th>
-					<th class=thwidth>목</th>
-					<th class=thwidth>금</th>
-					<th class=thwidth>토</th>
-				</tr>
-			</thead>
-			<tbody>
-			    <tr>
-			        <!-- foreach를 사용해 0부터 totalcell -1까지 반복 var=i로 현재의 값을 저장한다 -->
-			        <c:forEach var="i" begin="0" end="${totalCell-1}" step="1">
-			            <!-- d 변수를 i-beginBlank+1(캘린더에 날짜를 표시하는 값)로 설정 -->
-			            <c:set var="d" value="${i-beginBlank+1 }"></c:set> 
-			            <!-- 매주마다 행을 나눈다 -->	
-			            <c:if test="${i!=0 && i%7 == 0}"> 
-			                </tr><tr>
-			            </c:if>
-			            <!-- d값이 유효한 날짜범위에 속하지 않으면 <td>를 생성 -->
-			            <c:if test="${d < 1 || d > lastDate}">
-			                <td class="tdheight"></td>
-			            </c:if>
-			            <!-- else if문은 if문을 !으로  
-			                || choose / otherwise를 쓰면 switch 가능하다-->
-			            <c:if test="${!(d < 1 || d > lastDate)}">
-			                <td class="trheight tdheight" onclick="페이지로이동(${targetYear}, ${targetMonth + 1}, ${d})">
-			                    <div>
-			                        <a>${d}</a>
-			                    </div>
-			                    <!-- 해당 날짜에 해당하는 모든 내역 중 최대 4개만 출력 -->
-			                    <c:set var="count" value="0" />
-			                    <!-- 수정된 코드: 포맷터 적용 -->
-								<c:forEach var="c" items="${list}">
-								    <c:if test="${d == fn:substring(c.getCashbookDate(), 8, 10) && count < 4}">
-								        <div>
-								            <c:if test="${c.category == '수입'}">
-								                <span class="income-text" style="color: blue;">+<fmt:formatNumber value="${c.price}" pattern="###,###,###,###"/></span>
-								            </c:if>
-								            <c:if test="${c.category == '지출'}">
-								                <span class="expense-text" style="color: red;">-<fmt:formatNumber value="${c.price}" pattern="###,###,###,###"/></span>
-								            </c:if>
-								        </div>
-								        <c:set var="count" value="${count + 1}" />
-								    </c:if>
+		<div class="row">
+			<!-- 요일을 표시하는 헤더부분 -->
+			
+				<div class="col-lg-2" data-aos="fade-right">
+					<h2><strong>이달의 #</strong></h2>
+						<div>
+							<ul class="cashword-info">
+								<c:forEach var="m" items="${htList}">
+									<li class="cashword-list">
+										<a href="${pageContext.request.contextPath}/cashbookListbyTag?cashword=${m.cashword}">${m.cashword}(${m.cnt})</a>
+									</li>
 								</c:forEach>
-			                </td>
-			            </c:if>
-			        </c:forEach>
-			    </tr>
-			</tbody>
-		</table>
+							</ul>
+						</div>
+				</div>
+				
+				<div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+				<div class="head">
+					<h1>
+					<strong>${targetYear}년 ${targetMonth+1}월</strong>
+					</h1>
+					<!-- 이전달과 다음달로 이동하는 링크를 생성 -->
+					<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}"> &#x23EA; </a>
+					<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}"> &#x23E9; </a>
+					
+					<div>
+						
+					</div>
+				</div>
+					<table class="table">
+					<thead>
+						<tr>
+							<th class=thwidth>일</th>
+							<th class=thwidth>월</th>
+							<th class=thwidth>화</th>
+							<th class=thwidth>수</th>
+							<th class=thwidth>목</th>
+							<th class=thwidth>금</th>
+							<th class=thwidth>토</th>
+						</tr>
+					</thead>
+					<tbody>
+					    <tr>
+					        <!-- foreach를 사용해 0부터 totalcell -1까지 반복 var=i로 현재의 값을 저장한다 -->
+					        <c:forEach var="i" begin="0" end="${totalCell-1}" step="1">
+					            <!-- d 변수를 i-beginBlank+1(캘린더에 날짜를 표시하는 값)로 설정 -->
+					            <c:set var="d" value="${i-beginBlank+1 }"></c:set> 
+					            <!-- 매주마다 행을 나눈다 -->	
+					            <c:if test="${i!=0 && i%7 == 0}"> 
+					                </tr><tr>
+					            </c:if>
+					            <!-- d값이 유효한 날짜범위에 속하지 않으면 <td>를 생성 -->
+					            <c:if test="${d < 1 || d > lastDate}">
+					                <td class="tdheight"></td>
+					            </c:if>
+					            <!-- else if문은 if문을 !으로  
+					                || choose / otherwise를 쓰면 switch 가능하다-->
+					            <c:if test="${!(d < 1 || d > lastDate)}">
+					                <td class="trheight tdheight" onclick="페이지로이동(${targetYear}, ${targetMonth + 1}, ${d})">
+					                    <div>
+					                        <a>${d}</a>
+					                    </div>
+					                    <!-- 해당 날짜에 해당하는 모든 내역 중 최대 4개만 출력 -->
+					                    <c:set var="count" value="0" />
+					                    <!-- 수정된 코드: 포맷터 적용 -->
+										<c:forEach var="c" items="${list}">
+										    <c:if test="${d == fn:substring(c.getCashbookDate(), 8, 10) && count < 4}">
+										        <div>
+										            <c:if test="${c.category == '수입'}">
+										                <span class="income-text" style="color: blue;">+<fmt:formatNumber value="${c.price}" pattern="###,###,###,###"/></span>
+										            </c:if>
+										            <c:if test="${c.category == '지출'}">
+										                <span class="expense-text" style="color: red;">-<fmt:formatNumber value="${c.price}" pattern="###,###,###,###"/></span>
+										            </c:if>
+										        </div>
+										        <c:set var="count" value="${count + 1}" />
+										    </c:if>
+										</c:forEach>
+					                </td>
+					            </c:if>
+					        </c:forEach>
+					    </tr>
+					</tbody>
+				</table>
+				</div>
+					
+		</div>
 
 	</div>
 	<jsp:include page="/layout/footer.jsp"></jsp:include>
