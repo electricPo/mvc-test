@@ -52,9 +52,53 @@ public class CashbookDao {
 		
 		return cashbookNo;
 	}
+	//유저별 최신소비내역 출력
+	public List<Cashbook> selectRecentConsum(String memberId, int beginRow, int rowPerPage){
+		List<Cashbook> list = new ArrayList<Cashbook>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT c.cashbook_no cashbookNo, c.category category, c.price price, c.cashbook_date cashbookDate, c.memo memo"
+				+ "FROM cashbook c INNER JOIN hashtag h"
+				+ "ON c.cashbook_no = h.cashbook_no"
+				+ "WHERE c.member_id = 'user1'"
+				+ "ORDER BY c.cashbook_date DESC";
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1,memberId);
+			stmt.setInt(3,beginRow);
+			stmt.setInt(4,rowPerPage);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Cashbook c = new Cashbook();
+				c.setCashbookNo(rs.getInt("cashbookNo"));
+				c.setCategory(rs.getString("category"));
+				c.setPrice(rs.getInt("price"));
+				c.setCashbookDate(rs.getString("cashbookDate"));
+				c.setMemo(rs.getString("memo"));
+				list.add(c);
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			}catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}		
+		return list;
+	}
+	
 	
 	// 태그별 가계부리스트 출력
-	public List<Cashbook> selectCashbookListByTag(String memberId, String word, int beginRow, int rowPerPage){
+	public List<Cashbook> selectCashbookListByTag(String memberId, String cashword, int beginRow, int rowPerPage){
 		List<Cashbook> list = new ArrayList<Cashbook>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -63,7 +107,7 @@ public class CashbookDao {
 		String sql = "SELECT c.cashbook_no cashbookNo, c.category category, c.price price, c.cashbook_date cashbookDate, c.memo memo "
 				+ "FROM cashbook c INNER JOIN hashtag h "
 				+ "ON c.cashbook_no = h.cashbook_no "
-				+ "WHERE c.member_id = ? AND h.word = ? "
+				+ "WHERE c.member_id = ? AND h.cashword = ? "
 				+ "ORDER BY c.cashbook_date DESC "
 				+ "LIMIT ?,?";
 		
@@ -72,7 +116,7 @@ public class CashbookDao {
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1,memberId);
-			stmt.setString(2,word);
+			stmt.setString(2,cashword);
 			stmt.setInt(3,beginRow);
 			stmt.setInt(4,rowPerPage);
 			rs = stmt.executeQuery();

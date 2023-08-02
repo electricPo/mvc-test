@@ -1,14 +1,15 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap');
 /*헤더*/
-	/*전체 폰트 설정*/
+/*전체 폰트 설정*/
 	* {
 	  font-family: "Nanum Gothic" !important;
 	}
+	/*
 	.custom-navbar .navbar-brand {
-	  font-size: 24px; /* Change this value to set your desired font size */
+	  font-size: 15px;
 	}
-
+	*/
   	.custom-navbar {
     	background-color: #22800042;
   	}
@@ -21,6 +22,14 @@
 	  text-align: center;
 	}
  /*홈*/
+ 	.row {
+	    display: -ms-flexbox;
+	    display: flex;
+	    -ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	    margin-right: 50px;
+	    margin-left: 50px;
+	}
  	.home-body {
 	    background-color: #f2f2f2;
 	    margin: 0;
@@ -32,15 +41,16 @@
 	  }
 
   	#chart, .latest-expense, #counter {
-	    background-color: #ffffff;
+	    background-color: #f2f2f2;
+	    text-align: center;
 	    margin: 100px 0;
-	    padding: 100px;
+	    padding: 50px
 	  }
  	/* Counter Section */
  
      #counter {
-	    background-color: #ffffff;
-	    padding: 100x 0;
+	    background-color: #f2f2f2;
+	    padding: 100x 50px;
 	    text-align: center;
 	    position: relative;
 	  }
@@ -73,12 +83,23 @@
 	
 	
  /*로그인*/
- .loginBody {
+ 	body.loginBody {
+            color: #3c763d08;
+        }
+
+        /* CSS to change the font color of the login form labels */
+        .text-info {
+            color: #22800042;
+        }
+ 	.loginBody {
 	  margin: 0;
 	  padding: 0;
 	  background-color: #ffffff;
 	  height: 100vh;
 
+	}
+	.login{
+	color:#22800042;
 	}
 	#login .container #login-row #login-column #login-box {
 	  margin-top: 120px;
@@ -86,21 +107,72 @@
 	  height: 320px;
 	  border: 1px solid #9C9C9C;
 	  background-color: #EAEAEA;
-	  font-size: 1.5rem;
+	  font-size: 2rem;
 	}
 	#login .container #login-row #login-column #login-box #login-form {
 	  padding: 20px;
-	  font-size: 1.5rem;
+	  font-size: 1rem;
 	}
 	#login .container #login-row #login-column #login-box #login-form #register-link {
 	  margin-top: -85px;
-	  font-size: 1.5rem;
+	  font-size: 1rem;
+	}
+/*cashbook*/
+	.consum-head {
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	    font-weight: 500;
+	    line-height: 1.2;
+	}
+	.consum1 {
+	  margin-bottom: 20px;
+	}
+	
+	.consum2 {
+	  margin-top: 20px;
+	}
+	
+/*멤버상세*/
+	#member .container {
+	  margin-top: 120px;
+	  max-width: 400px;
+	  height: 320px;
+	  border: 1px solid #9C9C9C;
+	  background-color: #EAEAEA;
+	  font-size: 2rem;
+	}
+	
+	#member .container #member-row #member-column #member-box {
+	  padding: 20px;
+	  font-size: 1rem;
+	}
+	
+	#member .container #member-row #member-column #member-box #member-form {
+	  margin-top: 20px;
+	}
+	
+	#member .container #member-row #member-column #member-box #member-form .form-group {
+	  margin-bottom: 10px;
+	}
+	
+	#member .container #member-row #member-column #member-box #member-form .text-info {
+	  font-size: 1rem;
+	}
+	
+	#member .container #member-row #member-column #member-box #member-form a {
+	  font-size: 1rem;
+	  text-decoration: none;
+	  color: #000000;
+	}
+	
+	#member .container #member-row #member-column #member-box #member-form a:hover {
+	  color: #007BFF;
 	}
 
 /* 캘린더 */
 .body {
-        margin: 0;
-        font-size: medium;
+        margin: 0 auto;
+        font-size: 1rem; 
         font-weight: 500;
         line-height: inherit;
         color: #212529;
@@ -111,15 +183,23 @@
     .head {
         padding: 20px;
     }
-    
-    .table {
-        text-align: center;
-        /* Remove the padding and adjust the height of the container */
-        padding: 0;
-        height: 80%; /* Adjust the height as needed */
-        color: #212529;
-        background-color: #3c763d08;
+    .emote {
+    	color: #22800042;
+    	text-decoration: none;
     }
+    .emote:hover {
+	  text-decoration: none;
+	}
+    .table {
+	    text-align: center;
+	    width: 80%;
+	    margin: 0 auto;
+	    padding: 0;
+	    height: 80%;
+	    color: #212529;
+	    background-color: #3c763d08;
+	    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+	}
     
     .thwidth {
         width: 10%;
@@ -127,19 +207,54 @@
     }
     
 	.tdheight {
-        /* Set the height of the table rows (tr) to 20% */
-        height: 150px;
-    }
+	    height: 150px;
+	    padding: 5px; 
+	}
+	
     .trheight:hover {
-        background-color: #f5f5f5;
-        cursor: pointer;
-    }
+	    background-color: #f5f5f5;
+	    cursor: pointer;
+	    margin: 0; 
+	}
 
-    /* Reduce the font size for income and expense text */
+
     .income-text, .expense-text {
-        font-size: 50%; /* Set to half of the current size */
+        font-size: 50%; 
     }
-
+    .cashword {
+    	 margin-top: 200px;
+   
+    }
+    .cashword-info {
+	    bottom: 20px;
+	    left: 50%;
+	    font-size: 16px;
+	    background-color: #fff;
+	    padding: 10px 20px;
+	    border-radius: 10px;
+	    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+	  }
+    .cashword-list {
+	    list-style: none;
+	    padding: 0;
+	    margin-bottom: 10px;
+	  }
+	.cashword-list a:hover {
+		text-decoration: none;
+	}
+	.cashword-list a {
+		color: #22800042;
+		text-decoration: none;
+	}
+	
+	 .col-lg-2 {
+	    margin-top: 100px; /* Add spacing (margin) above the "이달의 #" section */
+	    margin-bottom: 20px; /* Add spacing (margin) below the "이달의 #" section */
+	}
+	.income-text, .expense-text {
+	    font-size: 80%; 
+	}
+	
 /*footer*/
 	footer {
 		background-color: #22800042;

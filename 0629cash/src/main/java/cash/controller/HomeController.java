@@ -2,6 +2,7 @@ package cash.controller;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cash.model.CashbookDao;
 import cash.service.CounterService;
+import cash.vo.Cashbook;
 import cash.vo.Member;
 
 @WebServlet("/home")
@@ -40,6 +43,19 @@ public class HomeController extends HttpServlet {
 		int targetMonth = firstDay.get(Calendar.MONTH);
 		firstDay.set(Calendar.DATE, 1); // 1일
 		
+		// 오늘 날짜 
+		Calendar today = Calendar.getInstance();
+		int todayYear = today.get(Calendar.YEAR);
+		int todayMonth = today.get(Calendar.MONTH);
+		
+		if (request.getParameter("targetYear") == null 
+				|| request.getParameter("targetMonth") == null
+				|| request.getParameter("targetYear") == "" 
+				|| request.getParameter("targetMonth") == "") {
+	        targetYear = todayYear;
+	        targetMonth = todayMonth;
+	    }
+
 		// 출력하고자 하는 년도와 월이 매개값으로 넘어왔다면
 		if(request.getParameter("targetYear") != null
 				&& request.getParameter("targetMonth") != null) {
@@ -54,12 +70,7 @@ public class HomeController extends HttpServlet {
 			targetYear = firstDay.get(Calendar.YEAR);
 			targetMonth = firstDay.get(Calendar.MONTH);
 		}
-				
-		// 오늘 날짜 
-		Calendar today = Calendar.getInstance();
-		int todayYear = today.get(Calendar.YEAR);
-		int todayMonth = today.get(Calendar.MONTH);
-		
+
 		
 		//현재 방문자 수, 누적 방문자 수
 		this.counterService = new CounterService();
@@ -71,6 +82,7 @@ public class HomeController extends HttpServlet {
 		
 		System.out.println(counter +"<-counter / home");
 		System.out.println(totalCounter +"<-totalCounter / home");
+		System.out.println(targetMonth +"<-targetMonth / home");
 		
 		request.setAttribute("targetYear", targetYear);
 		request.setAttribute("targetMonth", targetMonth);

@@ -6,14 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CASH BOOK</title>
-<!-- css파일 -->
-	<link href="<%=request.getContextPath() %>/style.css" type="text/css" rel="stylesheet">
-<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<!-- Chart.js cdn -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<jsp:include page="/layout/cdn.jsp"></jsp:include>
 </head>
 <script>
     $(document).ready(function() {
@@ -85,29 +78,33 @@
 
 <jsp:include page="/layout/header.jsp"></jsp:include>
 	<div class="row row-first">
-		<section id="chart" class="col-lg-8  col-lg-offset-3">
+		<section id="chart" class="col-lg-12">
 			<div class="container">
 				<h3>${memberId}님의 ${targetMonth +1}월 해시태그 사용 비율</h3>
-					<table>
-						<thead>
-							<tr>
-								<th>해시태그</th>
-								<th>게시글수</th>
-							</tr>
-
-						</thead>
-						<tbody id="target">
-						</tbody>
-					</table>
-					<canvas id="target2" style="width:100%;max-width:800px"></canvas>
+				<!-- 이전달과 다음달로 이동하는 링크를 생성 -->
+					<a href="${pageContext.request.contextPath}/home?targetYear=${targetYear}&targetMonth=${targetMonth-1}" class="emote"> &#x23EA; </a>
+					<a href="${pageContext.request.contextPath}/home?targetYear=${targetYear}&targetMonth=${targetMonth+1}" class="emote"> &#x23E9; </a>
+					<div class="row">
+						<div   class="col-lg-8">
+							<canvas id="target2" style="width:100%;max-width:800px"></canvas>
+						</div>
+						
+						<div class="col-lg-4  text-center d-flex align-items-center">
+							<div id="target">
+							<table>
+								<tr>
+									<td>해시태그</td>
+									<td>&nbsp;게시글수</td>
+								</tr>
+							</table>
+							</div>
+						</div>
+						</div>
+			</div>
+					
 			</div>
 		</section>
 
-		<section class="latest-expense col-lg-4 col-lg-offset-3">
-			<div class="container">
-				최신 소비 지출 내역(10개?)
-			</div>
-		</section>
 	</div>
 	<section id="counter" class="counter section-bg">
 	    <div class="container" data-aos="fade-up">

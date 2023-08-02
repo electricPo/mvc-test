@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 탈퇴</title>
+<title>CASH BOOK</title>
 </head>
 <body>
 	<jsp:include page="/layout/header.jsp"></jsp:include>

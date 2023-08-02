@@ -1,41 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ page import="cash.vo.Member" %>
 
-<%
-//세션 유효성 검사
-	HttpSession ondSession = request.getSession();
-		System.out.println("로그인 성공");
 
-
-%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
+<title>CASH BOOK</title>
+<jsp:include page="/layout/cdn.jsp"></jsp:include>
 <body>
 	<jsp:include page="/layout/header.jsp"></jsp:include>
-	
-	<h1>회원 상세정보</h1>
-	<form method="post" action="${pageContext.request.contextPath}/removeMember">
-		<table>
-			<tr>
-				<td>아이디</td>
-				<td><%= ((Member) request.getAttribute("member")).getMemberId() %></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><%= ((Member) request.getAttribute("member")).getMemberPw() %></td>
-			</tr>
+	<div id="member">
+		<h3 class="text-center text-white pt-5">member info</h3>
+			<div class="container">
+		            <div id="member-row" class="row justify-content-center align-items-center">
+		                <div id="member-column" class="col-md-6">
+		                    <div id="member-box" class="col-md-12">
+		                        <form id="member-form" class="form" action="${pageContext.request.contextPath}/removeMember" method="post">
 
-		</table>
-		
-		<a href="${pageContext.request.contextPath}/modifyMember">회원정보수정</a>
-		<a href="${pageContext.request.contextPath}/removeMember">회원탈퇴</a>
-	</form>
-	
+		                            <div class="form-group">
+		                                <label for="username" class="text-info">Username:
+		                                		<%= ((Member) request.getAttribute("member")).getMemberId() %></label><br>
+		                            </div>
+		                            <div class="form-group">
+		                                <label for="password" class="text-info">Password:
+		                                		<%= ((Member) request.getAttribute("member")).getMemberPw() %></label><br>
+		                            </div>
+		                            <br>
+		                            <div class="form-group">
+		                                <a href="${pageContext.request.contextPath}/modifyPassword" class="text-info">회원정보수정</a>
+		                            </div>
+		                            <br>
+		                            <div class="form-group">
+		                                <a href="${pageContext.request.contextPath}/removeMember" class="text-info">회원탈퇴</a>
+		                            </div>
+		                        </form>
+	                      	</div>
+                      </div>
+                  </div>
+	         </div>
+	</div>
 	<jsp:include page="/layout/footer.jsp"></jsp:include>
 </body>
 </html>

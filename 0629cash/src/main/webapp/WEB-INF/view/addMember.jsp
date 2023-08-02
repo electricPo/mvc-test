@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>addMember</title>
+<title>CASH BOOK</title>
 </head>
 <body>
 	<jsp:include page="/layout/header.jsp"></jsp:include>

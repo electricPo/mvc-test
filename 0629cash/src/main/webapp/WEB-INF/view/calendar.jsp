@@ -8,17 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>CASH BOOK</title>
-<!-- css파일 -->
-	<link href="<%=request.getContextPath() %>/style.css" type="text/css" rel="stylesheet">
-<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<jsp:include page="/layout/cdn.jsp"></jsp:include>
 </head>
-
 <script>
     function 페이지로이동(year, month, day) {
         // 애플리케이션의 기본 URL을 가져오기 위해 pageContext.request.contextPath를 사용합니다.
@@ -52,9 +43,9 @@
 						<div>
 							<ul class="cashword-info">
 								<c:forEach var="m" items="${htList}">
-									<li class="cashword-list">
+									<strong><li class="cashword-list">
 										<a href="${pageContext.request.contextPath}/cashbookListbyTag?cashword=${m.cashword}">${m.cashword}(${m.cnt})</a>
-									</li>
+									</li></strong>
 								</c:forEach>
 							</ul>
 						</div>
@@ -66,8 +57,8 @@
 					<strong>${targetYear}년 ${targetMonth+1}월</strong>
 					</h1>
 					<!-- 이전달과 다음달로 이동하는 링크를 생성 -->
-					<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}"> &#x23EA; </a>
-					<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}"> &#x23E9; </a>
+					<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}" class="emote"> &#x23EA; </a>
+					<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}" class="emote"> &#x23E9; </a>
 					
 					<div>
 						
