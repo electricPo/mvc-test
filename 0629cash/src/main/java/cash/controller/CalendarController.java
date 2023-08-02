@@ -1,6 +1,7 @@
 package cash.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -119,6 +120,8 @@ public class CalendarController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("htList", htList);
+		
+		
 		
 		//달력을 출력하는 뷰로 포워딩하기
 		request.getRequestDispatcher("/WEB-INF/view/calendar.jsp").forward(request, response);

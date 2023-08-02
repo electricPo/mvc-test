@@ -1,31 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <!-- css파일 -->
-	<link href="<%=request.getContextPath() %>/style.css" type="text/css" rel="stylesheet">
-<!-- 부트스트랩 적용 -->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-</head>
-
-
-<body>
+<link href="<%=request.getContextPath() %>/style.css" type="text/css" rel="stylesheet">
+	
 <nav class="navbar navbar-expand-md custom-navbar">
   <!-- Brand -->
-  <a class="navbar-brand" href="#">Cashbook</a>
+  <a class="navbar-brand" href="${pageContext.request.contextPath}/home">Cashbook</a>
 
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -47,6 +26,3 @@
     </ul>
   </div>
 </nav>
-
-</body>
-</html>
